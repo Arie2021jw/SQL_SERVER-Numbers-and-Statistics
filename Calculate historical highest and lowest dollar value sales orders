@@ -1,8 +1,6 @@
-Exercise #1: Calculate the historical highest and lowest dollar value sales orders for all geographies
+Exercise #1: Calculate the historical highest and lowest dollar value sales orders for all geographies.
 
-
-Solution #1.1: We calculate the historical highest and lowest dollar value sales orders using Functions MAX and MIN
-
+Solution #1.1: We calculate the historical highest and lowest dollar value sales orders using Functions MAX and MIN.
 
 SELECT FORMAT(ROUND(MAX(SalesOrderHeader.[TotalDue]), 2, 2), '#,#.##') AS HighestDollarValueSales
 , FORMAT(ROUND(MIN(SalesOrderHeader.[TotalDue]), 2, 2), '#,#.##') AS LowestDollarValueSales
@@ -17,10 +15,11 @@ HighestDollarValueSales	LowestDollarValueSales
 
 
 
-Exercise #2: Calculate the historical highest and lowest dollar value sales orders for all groups of countries
 
 
-Solution #2.1: We calculate the historical highest and lowest dollar value sales orders using Functions MAX and MIN and GROUP BY clause
+Exercise #2: Calculate the historical highest and lowest dollar value sales orders for all groups of countries.
+
+Solution #2.1: We calculate the historical highest and lowest dollar value sales orders using Functions MAX and MIN and GROUP BY clause.
 
 SELECT SalesTerritory.[Group]
 , FORMAT(ROUND(MAX(SalesOrderHeader.[TotalDue]), 2, 2), '#,#.##') AS HighestDollarValueSales
@@ -42,11 +41,10 @@ Europe		166,537.08			3.03
 
 
 
+
 Exercise #3: Calculate the historical highest and lowest dollar value sales orders for every country
 
-
 Solution #3.1: We calculate the historical highest and lowest dollar value sales orders using Functions MAX and MIN and GROUP BY clause
-
 
 SELECT SalesTerritory.[Group]
 , CountryRegion.[Name] AS CountryName
@@ -76,11 +74,11 @@ Pacific		Australia		71,729.85			2.53
 
 
 
+
+
 Exercise #4: Calculate the historical highest and lowest dollar value sales orders for every State or Province
 
-
 Solution #4.1: We calculate the historical highest and lowest dollar value sales orders using Functions MAX and MIN and GROUP BY clause
-
 
 SELECT X.StateProvinceName
 , FORMAT(ROUND(MAX(X.[TotalDue]), 2, 2), '#,#.##') AS HighestDollarValueSales
