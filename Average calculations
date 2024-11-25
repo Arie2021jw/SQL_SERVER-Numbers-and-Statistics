@@ -13,6 +13,8 @@ HistoricAverageSalesAmount
 (end of results)
 
 
+
+
 Solution #1.2, Query #1.2: We calculate the historic average sales orders amount using Functions SUM and COUNT
 
 SELECT FORMAT(ROUND(SUM(TotalDue) / COUNT(TotalDue), 2, 2), '#,#.##')  AS HistoricAverageSalesAmount
@@ -26,6 +28,9 @@ HistoricAverageSalesAmount	SumTotalSalesAmount	CountTotalSales
 3,915.99			123,216,786.12		31,465
 (1 row affected)
 (end of results)
+
+
+
 
 
 
@@ -72,6 +77,7 @@ North America	5,539.4
 
 
 
+
 Solution #2.3, Query #2.3: Calculate the historic average sales orders amount by Country using GROUP BY ROLLUP subclause
 
 SELECT COALESCE(SalesTerritory.[Group], 'Total') AS CountryCode
@@ -96,8 +102,9 @@ Total		123,216,786.12		31,465			3,915.99
 
 
 
-Exercise #3: Calculate the historic average sales orders amount by Country 
 
+
+Exercise #3: Calculate the historic average sales orders amount by Country 
 
 Solution #3.1, Query #3.1: Calculate the historic average sales orders amount by Country using Average (Aggregate) Window Function
 
@@ -121,8 +128,8 @@ DE			2,089
 
 
 
-Solution #3.2, Query #3.2: Calculate the historic average sales orders amount by Country using functions SUM/COUNT and GROUP BY clause
 
+Solution #3.2, Query #3.2: Calculate the historic average sales orders amount by Country using functions SUM/COUNT and GROUP BY clause
 
 SELECT DISTINCT SalesTerritory.CountryRegionCode
 , FORMAT(ROUND(SUM(TotalDue) / COUNT(TotalDue), 2, 2), '#,#.##') AS HistoricAverageSalesAmount
@@ -142,6 +149,7 @@ FR			3,038.82
 US			5,882.39
 (6 rows affected)
 (end of results)
+
 
 
 
