@@ -35,8 +35,8 @@ Pacific		11,814,376.09		123,216,786.11
 
 
 
-Exercise #2: Calculate the running total for dollar value sales orders for all countries
 
+Exercise #2: Calculate the running total for dollar value sales orders for all countries
 
 Solution #2.1, Query #2.1:
 
@@ -79,8 +79,8 @@ US	70,829,863.2		123,216,786.11
 
 
 
-Exercise #3: Calculate the running total for the SUM of the dollar value sales orders, for all States or Provinces.
 
+Exercise #3: Calculate the running total for the SUM of the dollar value sales orders, for all States or Provinces.
 
 Solution #3.1, Query #3.1:
 
@@ -133,8 +133,8 @@ Row #	StateProvinceName	TotalSalesAmount	RunningTotalSalesAmount
 
 
 
-Exercise #4: Calculate the running total for the dollar value sales orders, at a SalesOrderID level, for all States or Provinces.
 
+Exercise #4: Calculate the running total for the dollar value sales orders, at a SalesOrderID level, for all States or Provinces.
 
 Solution #4.1, Query #4.1:
 
