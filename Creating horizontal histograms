@@ -3,6 +3,8 @@ Exercise #1: Create a horizontal histogram for employees' genders.
 
 Solution #1: 
 
+Table used: [AdventureWorks2022].[HumanResources].[Employee]
+
 SELECT GENDER
 , COUNT(*) AS EmployeeCount
 , REPLICATE('*', COUNT(*)) AS EmployeeCountHistogram
@@ -22,6 +24,14 @@ M	206	**************************************************************************
 
 
 Exercise #2: Create a horizontal histogram for each department by employees' genders.
+
+
+Solution #2.1:
+
+Tables used:
+1) [AdventureWorks2022].[HumanResources].[EmployeeDepartmentHistory]
+2) [AdventureWorks2022].[HumanResources].[Department]
+3) [AdventureWorks2022].[HumanResources].[Employee]
 
 SELECT X.DepartmentName
 , X.Gender
