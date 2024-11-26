@@ -1,0 +1,44 @@
+Exercise #1: Calculating the mode to determine which ProductID has the most sales (historically)
+
+
+Solution #1.1, Query #1.1:
+
+SELECT Y.ProductID						-- ModeDenseRankLevel2	
+, Y.ProductName
+, Y.SUMOrderQty
+, DENSE_RANK() OVER (ORDER BY Y.SUMOrderQty DESC) AS DenseRank
+FROM (
+	SELECT X.ProductID
+	, X.ProductName AS ProductName
+	, SUM(X.OrderQty) AS SUMOrderQty
+	FROM (
+		SELECT SalesOrderHeader.SalesOrderID			-- OriginalTablesLevel1
+		, [Product].[Name] AS ProductName
+		, SalesOrderDetail.ProductID
+		, SalesOrderDetail.OrderQty
+		FROM [AdventureWorks2022].[Sales].[SalesOrderHeader] AS SalesOrderHeader
+		LEFT JOIN [AdventureWorks2022].[Sales].[SalesOrderDetail] AS SalesOrderDetail
+			ON SalesOrderHeader.SalesOrderID = SalesOrderDetail.SalesOrderID
+		LEFT JOIN [AdventureWorks2022].[Production].[Product] AS [Product]
+			ON SalesOrderDetail.ProductID = [Product].ProductID				-- OriginalTablesLevel1
+		) AS X
+	GROUP BY X.ProductID, X.ProductName
+	) AS Y							-- ModeDenseRankLevel2
+
+
+	-- OUTPUT
+ProductID	ProductName			SUMOrderQty	DenseRank
+712	AWC Logo Cap				8311		1
+870	Water Bottle - 30 oz.			6815		2
+711	Sport-100 Helmet, Blue			6743		3
+715	Long-Sleeve Logo Jersey, L		6592		4
+708	Sport-100 Helmet, Black			6532		5
+........................................................................... TRUNCATED RESULTS ................
+927	LL Mountain Frame - Black, 52		15		241
+898	LL Touring Frame - Blue, 62		15		241
+911	LL Road Seat/Saddle			10		242
+943	LL Mountain Frame - Black, 40		8		243
+942	ML Mountain Frame-W - Silver, 38	7		244
+897	LL Touring Frame - Blue, 58		4		245
+(end of results)
+(266 rows affected)
