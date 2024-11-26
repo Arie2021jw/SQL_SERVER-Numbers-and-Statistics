@@ -3,12 +3,12 @@ Exercise #1: Calculating the mode to determine which ProductID has the most sale
 
 Solution #1.1, Query #1.1:
 
-SELECT Y.ProductID						-- ModeDenseRankLevel2	
+SELECT Y.ProductID					-- ModeDenseRankLevel3	
 , Y.ProductName
 , Y.SUMOrderQty
 , DENSE_RANK() OVER (ORDER BY Y.SUMOrderQty DESC) AS DenseRank
 FROM (
-	SELECT X.ProductID
+	SELECT X.ProductID							-- SumUnitsSoldPerProductIDLevel2
 	, X.ProductName AS ProductName
 	, SUM(X.OrderQty) AS SUMOrderQty
 	FROM (
@@ -22,8 +22,8 @@ FROM (
 		LEFT JOIN [AdventureWorks2022].[Production].[Product] AS [Product]
 			ON SalesOrderDetail.ProductID = [Product].ProductID			-- OriginalTablesLevel1
 		) AS X
-	GROUP BY X.ProductID, X.ProductName
-	) AS Y							-- ModeDenseRankLevel2
+	GROUP BY X.ProductID, X.ProductName					-- SumUnitsSoldPerProductIDLevel2
+	) AS Y						-- ModeDenseRankLevel3
 
 
 	-- OUTPUT
