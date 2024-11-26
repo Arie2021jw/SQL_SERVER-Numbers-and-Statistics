@@ -6,4 +6,5 @@ List of examples:
 3) Creating vertical histograms
 4) Highest and lowest dollar value sales orders calculations
 5) Mode calculations
-6) Running totals calculations
+6) PERCENT_RANK() and CUME_DIST() for salary (percentile) calculations
+7) Running totals calculations
