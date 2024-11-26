@@ -3,14 +3,14 @@ Exercise #1: Calculating the salary percentiles for each employee for the whole 
 
 Solution #1.1, Query #1.1:
 
-SELECT DISTINCT Y.SalaryRate
+SELECT DISTINCT Y.SalaryRate												-- PercentRank()_CumeDist()Level3
 , ROUND(PERCENT_RANK() OVER (ORDER BY Y.SalaryRate),6) * 100 AS SalaryRatePercentRank
 , ROUND(CUME_DIST() OVER (ORDER BY Y.SalaryRate), 6) * 100 AS SalaryRateCummulativeDistribution
 FROM (
-	SELECT X.BusinessEntityID
+	SELECT X.BusinessEntityID								-- UniqueSalaryRatesLevel2
 	, X.Rate AS SalaryRate
 	FROM (
-		SELECT EmployeeDepartmentHistory.BusinessEntityID										-- OriginalTablesLevel1
+		SELECT EmployeeDepartmentHistory.BusinessEntityID							-- OriginalTablesLevel1
 		, EmployeeDepartmentHistory.DepartmentID
 		, EmployeeDepartmentHistory.ModifiedDate AS EDH_ModifiedDate
 		, Department.[Name] AS DepartmentName
@@ -23,10 +23,10 @@ FROM (
 		INNER JOIN [AdventureWorks2022].[HumanResources].[Employee] AS Employee
 			ON EmployeeDepartmentHistory.BusinessEntityID = Employee.BusinessEntityID				
 		INNER JOIN [AdventureWorks2022].[HumanResources].[EmployeePayHistory] AS EmployeePayHistory
-			ON EmployeeDepartmentHistory.BusinessEntityID = EmployeePayHistory.BusinessEntityID				-- OriginalTablesLevel1
+			ON EmployeeDepartmentHistory.BusinessEntityID = EmployeePayHistory.BusinessEntityID		-- OriginalTablesLevel1
 		) AS X
-	WHERE RowNumber = 1
-	) AS Y
+	WHERE RowNumber = 1									-- UniqueSalaryRatesLevel2
+	) AS Y														-- PercentRank()_CumeDist()Level3
 
 
 	-- OUTPUT
