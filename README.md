@@ -5,4 +5,5 @@ List of examples:
 2) Creating horizontal histograms
 3) Creating vertical histograms
 4) Highest and lowest dollar value sales orders calculations
-5) Running totals calculations
+5) Mode calculations
+6) Running totals calculations
