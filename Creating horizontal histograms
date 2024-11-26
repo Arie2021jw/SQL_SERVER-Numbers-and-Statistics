@@ -21,7 +21,7 @@ M	206	**************************************************************************
 
 
 
-Exercise #2: Create a horizontal histogram for employees' genders.
+Exercise #2: Create a horizontal histogram for each department by employees' genders.
 
 SELECT X.DepartmentName
 , X.Gender
@@ -44,34 +44,34 @@ GROUP BY X.Gender, X.DepartmentName
 
 
 	-- OUTPUT
-DepartmentName	Gender	EmployeeCountHistogram
-Document Control	F	*
-Document Control	M	****
-Engineering	F	***
-Engineering	M	***
-Executive	F	*
-Executive	M	*
+DepartmentName			Gender	EmployeeCountHistogram
+Document Control		F	*
+Document Control		M	****
+Engineering			F	***
+Engineering			M	***
+Executive			F	*
+Executive			M	*
 Facilities and Maintenance	F	**
 Facilities and Maintenance	M	*****
-Finance	F	*****
-Finance	M	*****
-Human Resources	F	**
-Human Resources	M	****
-Information Services	F	****
-Information Services	M	******
-Marketing	F	****
-Marketing	M	*****
-Production	F	**********************************************
-Production	M	*************************************************************************************************************************************
-Production Control	M	******
-Purchasing	F	****
-Purchasing	M	********
-Quality Assurance	M	******
+Finance				F	*****
+Finance				M	*****
+Human Resources			F	**
+Human Resources			M	****
+Information Services		F	****
+Information Services		M	******
+Marketing			F	****
+Marketing			M	*****
+Production			F	**********************************************
+Production			M	*************************************************************************************************************************************
+Production Control		M	******
+Purchasing			F	****
+Purchasing			M	********
+Quality Assurance		M	******
 Research and Development	F	**
 Research and Development	M	**
-Sales	F	*******
-Sales	M	***********
-Shipping and Receiving	F	**
-Shipping and Receiving	M	****
-Tool Design	F	*
-Tool Design	M	***
+Sales				F	*******
+Sales				M	***********
+Shipping and Receiving		F	**
+Shipping and Receiving		M	****
+Tool Design			F	*
+Tool Design			M	***
