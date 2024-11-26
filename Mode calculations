@@ -58,12 +58,12 @@ SELECT Y.[Year]
 , Y.SUMOrderQty
 , DENSE_RANK() OVER (ORDER BY Y.[Year] ,Y.SUMOrderQty DESC) AS DenseRank
 FROM (
-	SELECT X.ProductID									-- SumUnitsSoldPerProductIDLevel2			
+	SELECT X.ProductID						-- SumUnitsSoldPerProductIDLevel2			
 	, X.ProductName AS ProductName
 	, SUM(X.OrderQty) AS SUMOrderQty
 	, X.SalesYear AS [Year]
 	FROM (
-		SELECT SalesOrderHeader.SalesOrderID			-- OriginalTablesLevel1
+		SELECT SalesOrderHeader.SalesOrderID						-- OriginalTablesLevel1
 		, DATEPART(YEAR, SalesOrderHeader.OrderDate) AS SalesYear
 		, [Product].[Name] AS ProductName
 		, SalesOrderDetail.ProductID
@@ -72,10 +72,10 @@ FROM (
 		LEFT JOIN [AdventureWorks2022].[Sales].[SalesOrderDetail] AS SalesOrderDetail
 			ON SalesOrderHeader.SalesOrderID = SalesOrderDetail.SalesOrderID
 		LEFT JOIN [AdventureWorks2022].[Production].[Product] AS [Product]
-			ON SalesOrderDetail.ProductID = [Product].ProductID				-- OriginalTablesLevel1
+			ON SalesOrderDetail.ProductID = [Product].ProductID			-- OriginalTablesLevel1
 		) AS X
 	GROUP BY X.ProductID, X.ProductName, X.SalesYear		-- SumUnitsSoldPerProductIDLevel2
-	) AS Y							-- ModeDenseRankLevel3
+    ) AS Y						-- ModeDenseRankLevel3
 
 
 	-- OUTPUT
