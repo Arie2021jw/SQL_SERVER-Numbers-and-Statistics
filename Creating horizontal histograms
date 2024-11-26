@@ -85,3 +85,30 @@ Shipping and Receiving		F	**
 Shipping and Receiving		M	****
 Tool Design			F	*
 Tool Design			M	***
+
+
+	Comment on above results:
+1) Subquery X was created to:
+a) obtain the Department Name by joining together tables [AdventureWorks2022].[HumanResources].[EmployeeDepartmentHistory] and [AdventureWorks2022].[HumanResources].[Department],
+b) remove 5 duplicated BusinessEntityIDs from these 2 tables by using Window Function ROW_NUMBER().
+
+There are 5 BusinessEntityIDs that appear more than once after we join together tables [AdventureWorks2022].[HumanResources].[EmployeeDepartmentHistory] and [AdventureWorks2022].[HumanResources].[Department].
+
+SELECT EmployeeDeptHistory.BusinessEntityID
+, COUNT(*) AS EmployeeCount
+, REPLICATE('*', COUNT(*)) AS EmployeeCountHistogram
+FROM [AdventureWorks2022].[HumanResources].[EmployeeDepartmentHistory] AS EmployeeDeptHistory
+LEFT JOIN [AdventureWorks2022].[HumanResources].[Department] AS Department
+	ON EmployeeDeptHistory.DepartmentID = Department.DepartmentID
+GROUP BY EmployeeDeptHistory.BusinessEntityID
+HAVING COUNT(*) > 1
+ORDER BY EmployeeDeptHistory.BusinessEntityID
+
+
+	-- OUTPUT
+BusinessEntityID	EmployeeCount	EmployeeCountHistogram
+4			2		**
+16			2		**
+224			2		**
+234			2		**
+250			3		***
