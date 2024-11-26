@@ -17,4 +17,61 @@ M	206	**************************************************************************
 (end of results)
 (2 rows affected)
 
-  
+
+
+
+
+Exercise #2: Create a horizontal histogram for employees' genders.
+
+SELECT X.DepartmentName
+, X.Gender
+, REPLICATE('*', COUNT(*)) AS EmployeeCountHistogram 
+FROM (
+	SELECT EmployeeDeptHistory.BusinessEntityID
+	, EmployeeDeptHistory.DepartmentID
+	, EmployeeDeptHistory.ModifiedDate
+	, Department.[Name] AS DepartmentName
+	, Employee.Gender
+	, ROW_NUMBER() OVER (PARTITION BY EmployeeDeptHistory.BusinessEntityID ORDER BY EmployeeDeptHistory.BusinessEntityID ASC, EmployeeDeptHistory.ModifiedDate DESC) AS RowNumber
+	FROM [AdventureWorks2022].[HumanResources].[EmployeeDepartmentHistory] AS EmployeeDeptHistory
+	LEFT JOIN [AdventureWorks2022].[HumanResources].[Department] AS Department
+		ON EmployeeDeptHistory.DepartmentID = Department.DepartmentID
+	INNER JOIN [AdventureWorks2022].[HumanResources].[Employee] AS Employee
+		ON EmployeeDeptHistory.BusinessEntityID = Employee.BusinessEntityID
+	) AS X
+WHERE RowNumber = 1
+GROUP BY X.Gender, X.DepartmentName
+
+
+	-- OUTPUT
+DepartmentName	Gender	EmployeeCountHistogram
+Document Control	F	*
+Document Control	M	****
+Engineering	F	***
+Engineering	M	***
+Executive	F	*
+Executive	M	*
+Facilities and Maintenance	F	**
+Facilities and Maintenance	M	*****
+Finance	F	*****
+Finance	M	*****
+Human Resources	F	**
+Human Resources	M	****
+Information Services	F	****
+Information Services	M	******
+Marketing	F	****
+Marketing	M	*****
+Production	F	**********************************************
+Production	M	*************************************************************************************************************************************
+Production Control	M	******
+Purchasing	F	****
+Purchasing	M	********
+Quality Assurance	M	******
+Research and Development	F	**
+Research and Development	M	**
+Sales	F	*******
+Sales	M	***********
+Shipping and Receiving	F	**
+Shipping and Receiving	M	****
+Tool Design	F	*
+Tool Design	M	***
