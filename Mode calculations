@@ -3,6 +3,11 @@ Exercise #1: Calculating the mode to determine which ProductID has the most sale
 
 Solution #1.1, Query #1.1:
 
+Tables used:
+1) [AdventureWorks2022].[Sales].[SalesOrderHeader]
+2) [AdventureWorks2022].[Sales].[SalesOrderDetail]
+3) [AdventureWorks2022].[Production].[Product]
+
 SELECT Y.ProductID					-- ModeDenseRankLevel3	
 , Y.ProductName
 , Y.SUMOrderQty
@@ -51,6 +56,11 @@ Exercise #2: Calculating the mode to determine which ProductID has the most sale
 
 
 Solution #2.1, Query #2.1:
+
+Tables used:
+1) [AdventureWorks2022].[Sales].[SalesOrderHeader]
+2) [AdventureWorks2022].[Sales].[SalesOrderDetail]
+3) [AdventureWorks2022].[Production].[Product]
 
 SELECT Y.[Year]
 , Y.ProductID						-- ModeDenseRankLevel3	
