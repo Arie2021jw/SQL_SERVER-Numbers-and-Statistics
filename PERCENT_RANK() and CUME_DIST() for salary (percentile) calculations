@@ -75,3 +75,82 @@ This function calculates the cumulative distribution of a value within a group o
 
 Calculation: the cumulative distribution of a value in row R is defined as, the number of rows with values less than or equal to that value in row R, divided by the number of rows evaluated in query set or partition. 
 In this example, the query set or partition is the whole company.
+
+
+
+
+
+
+Exercise #2: Calculating the salary percentiles for each employee for departments "Information Services" and "Production".
+
+
+Solution #2.1, Query #2.1:
+
+SELECT Y.DepartmentName
+, Y.BusinessEntityID
+, Y.SalaryRate															-- PercentRank()_CumeDist()Level3
+, ROUND(PERCENT_RANK() OVER (PARTITION BY Y.DepartmentName ORDER BY Y.SalaryRate),2) AS SalaryRatePercentRank
+, ROUND(CUME_DIST() OVER (PARTITION BY Y.DepartmentName ORDER BY Y.SalaryRate), 2) AS SalaryRateCummulativeDistribution
+FROM (
+	SELECT X.DepartmentName
+	, X.BusinessEntityID									-- UniqueSalaryRatesLevel2
+	, X.Rate AS SalaryRate
+	FROM (
+		SELECT EmployeeDepartmentHistory.BusinessEntityID										-- OriginalTablesLevel1
+		, EmployeeDepartmentHistory.DepartmentID
+		, EmployeeDepartmentHistory.ModifiedDate AS EDH_ModifiedDate
+		, Department.[Name] AS DepartmentName
+		, EmployeePayHistory.Rate
+		, EmployeePayHistory.ModifiedDate AS EPH_ModifiedDate
+		, ROW_NUMBER() OVER (PARTITION BY EmployeeDepartmentHistory.BusinessEntityID ORDER BY EmployeeDepartmentHistory.BusinessEntityID ASC, EmployeeDepartmentHistory.ModifiedDate DESC, EmployeePayHistory.ModifiedDate DESC) AS RowNumber
+		FROM [AdventureWorks2022].[HumanResources].[EmployeeDepartmentHistory] AS EmployeeDepartmentHistory
+		LEFT JOIN [AdventureWorks2022].[HumanResources].[Department] AS Department
+			ON EmployeeDepartmentHistory.DepartmentID = Department.DepartmentID
+		INNER JOIN [AdventureWorks2022].[HumanResources].[Employee] AS Employee
+			ON EmployeeDepartmentHistory.BusinessEntityID = Employee.BusinessEntityID				
+		INNER JOIN [AdventureWorks2022].[HumanResources].[EmployeePayHistory] AS EmployeePayHistory
+			ON EmployeeDepartmentHistory.BusinessEntityID = EmployeePayHistory.BusinessEntityID				-- OriginalTablesLevel1
+		) AS X
+	WHERE RowNumber = 1																		-- UniqueSalaryRatesLevel2
+	) AS Y									-- PercentRank()_CumeDist()Level3
+WHERE Y.DepartmentName IN ('Sales','Production')
+ORDER BY Y.DepartmentName, Y.SalaryRate DESC
+
+
+
+DepartmentName		BusinessEntityID	SalaryRate	SalaryRatePercentRank		SalaryRateCummulativeDistribution
+Information Services	263			50.4808		1				1
+Information Services	264			39.6635		0.89				0.9
+Information Services	270			38.4615		0.67				0.8
+Information Services	271			38.4615		0.67				0.8
+Information Services	265			32.4519		0.44				0.6
+Information Services	266			32.4519		0.44				0.6
+Information Services	267			27.4038		0				0.4
+Information Services	268			27.4038		0				0.4
+Information Services	269			27.4038		0				0.4
+Information Services	272			27.4038		0				0.4
+Production		25			84.1346		1				1
+Production		87			25		0.88				0.99
+Production		93			25		0.88				0.99
+Production		78			25		0.88				0.99
+........................................................................................................... TRUNCATED RESULTS ......
+Production		85			15		0.74				0.88
+Production		86			15		0.74				0.88
+Production		135			14		0.61				0.73
+Production		136			14		0.61				0.73
+........................................................................................................... TRUNCATED RESULTS ......
+Production		185			14		0.61				0.73
+Production		48			13.45		0.52				0.61
+........................................................................................................... TRUNCATED RESULTS ......
+Production		105			13.45		0.52				0.61
+Production		106			13.45		0.52				0.61
+Production		107			13.45		0.52				0.61
+Production		41			12.45		0.37				0.51
+Production		42			12.45		0.37				0.51
+Production		43			12.45		0.37				0.51
+........................................................................................................... TRUNCATED RESULTS ......
+Production		75			9.5		0				0.14
+Production		76			9.5		0				0.14
+Production		77			9.5		0				0.14
+(end of results)
+(189 rows affected)
