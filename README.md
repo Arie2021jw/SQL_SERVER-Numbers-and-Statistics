@@ -5,7 +5,7 @@ List of examples:
 2) Creating horizontal histograms
 3) Creating vertical histograms
 4) Highest and lowest dollar value sales orders calculations
-5) Median calculations with PERCENTILE_DISC() and PERCENTILE_CONT()
-6) Mode calculations
-7) PERCENT_RANK() and CUME_DIST() for (salary) percentile calculations
+5) Median calculations using PERCENTILE_DISC() and PERCENTILE_CONT()
+6) Mode calculations using DENSE_RANK()
+7) Percentile calculations using PERCENT_RANK() and CUME_DIST()
 8) Running totals calculations
