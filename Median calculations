@@ -3,7 +3,14 @@ Exercise #1: Calculate the median employee salary for every department.
 
 Solution #1: We calculate the median employee salary for every department using functions PERCENTILE_DISC() and PERCENTILE_CONT().
 
-SELECT DISTINCT Y.DepartmentName				-- PercentRank()_CumeDist()Level3
+Tables used:
+1) [AdventureWorks2022].[HumanResources].[EmployeeDepartmentHistory]
+2) [AdventureWorks2022].[HumanResources].[Department]
+3) [AdventureWorks2022].[HumanResources].[Employee]
+4) [AdventureWorks2022].[HumanResources].[EmployeePayHistory]
+
+
+SELECT DISTINCT Y.DepartmentName			-- PercentRank()_CumeDist()Level3
 , PERCENTILE_DISC(0.5) WITHIN GROUP (ORDER BY Y.SalaryRate) OVER (PARTITION BY Y.DepartmentName) AS MedianPercentileDisc
 , PERCENTILE_CONT(0.5) WITHIN GROUP (ORDER BY Y.SalaryRate) OVER (PARTITION BY Y.DepartmentName) AS MedianPercentileCont
 FROM (
@@ -26,8 +33,8 @@ FROM (
 		INNER JOIN [AdventureWorks2022].[HumanResources].[EmployeePayHistory] AS EmployeePayHistory
 			ON EmployeeDepartmentHistory.BusinessEntityID = EmployeePayHistory.BusinessEntityID	-- OriginalTablesLevel1
 		) AS X
-	WHERE RowNumber = 1									-- UniqueSalaryRatesLevel2
-	) AS Y							-- PercentRank()_CumeDist()Level3
+	WHERE RowNumber = 1								-- UniqueSalaryRatesLevel2
+	) AS Y						-- PercentRank()_CumeDist()Level3
 
 
 	-- OUTPUT
@@ -50,7 +57,6 @@ Shipping and Receiving		9			9.25
 Tool Design			25			26.9231
 (end of results)
 (16 rows affected)
-
 
 
 	Comments on above results:
