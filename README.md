@@ -1,4 +1,4 @@
-This repository contains multiple examples on how SQL Server can be used to manipulate strings.
+This repository contains multiple examples on how SQL Server can be used to work with numbers and statistics.
 
 List of examples:
 1) Average calculations
